@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "exercise-app-3cf57"
+  },
+  "targets": {
+    "exercise-app-3cf57": {
+      "hosting": {
+        "exercise-app": [
+          "exercise-app-3cf57"
+        ]
+      }
+    }
   }
 }
