@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./video.component.scss']
 })
 export class VideoComponent implements OnInit {
-  private id = '60YEfkhmOOM';
+  id = '60YEfkhmOOM';
 
   constructor() { }
 
