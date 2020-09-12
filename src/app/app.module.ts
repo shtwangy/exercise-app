@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { VideoModule } from './video/video.module';
 import { ChartModule } from './chart/chart.module';
-import { CalendarHeatmapModule } from './calendar-heatmap/calendar-heatmap.module';
 
 @NgModule({
   declarations: [
@@ -15,8 +14,7 @@ import { CalendarHeatmapModule } from './calendar-heatmap/calendar-heatmap.modul
     BrowserModule,
     AppRoutingModule,
     VideoModule,
-    ChartModule,
-    CalendarHeatmapModule
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
