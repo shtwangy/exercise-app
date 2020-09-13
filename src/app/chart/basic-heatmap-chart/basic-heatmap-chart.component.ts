@@ -21,55 +21,55 @@ export type ChartOptions = {
 })
 export class BasicHeatmapChartComponent implements OnInit {
   public chartOptions: Partial<ChartOptions>;
-
+  count = 53;
   constructor() {
     this.chartOptions = {
       series: [
         {
           name: 'Sat',
-          data: this.generateData(18, {
+          data: this.generateData(this.count, {
             min: 0,
             max: 90
           })
         },
         {
           name: 'Fri',
-          data: this.generateData(18, {
+          data: this.generateData(this.count, {
             min: 0,
             max: 90
           })
         },
         {
           name: 'Thu',
-          data: this.generateData(18, {
+          data: this.generateData(this.count, {
             min: 0,
             max: 90
           })
         },
         {
           name: 'Wed',
-          data: this.generateData(18, {
+          data: this.generateData(this.count, {
             min: 0,
             max: 90
           })
         },
         {
           name: 'Tue',
-          data: this.generateData(18, {
+          data: this.generateData(this.count, {
             min: 0,
             max: 90
           })
         },
         {
           name: 'Mon',
-          data: this.generateData(18, {
+          data: this.generateData(this.count, {
             min: 0,
             max: 90
           })
         },
         {
           name: 'Sun',
-          data: this.generateData(18, {
+          data: this.generateData(this.count, {
             min: 0,
             max: 90
           })
