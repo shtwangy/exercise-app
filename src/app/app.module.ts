@@ -10,8 +10,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { VideoModule } from './video/video.module';
-import { ChartModule } from './chart/chart.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,8 @@ import { ChartModule } from './chart/chart.module';
     AngularFireFunctionsModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    BrowserAnimationsModule
   ],
   providers: [
     { provide: REGION, useValue: 'asia-northeast1' }
