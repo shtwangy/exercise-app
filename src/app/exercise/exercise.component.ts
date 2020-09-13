@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../core/services/auth/auth.service';
+import { AuthService } from '../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-exercise',
@@ -9,7 +9,7 @@ import {AuthService} from '../core/services/auth/auth.service';
 export class ExerciseComponent implements OnInit {
 
   constructor(
-    private authService: AuthService
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {
