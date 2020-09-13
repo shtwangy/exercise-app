@@ -24,9 +24,7 @@ import { ChartModule } from './chart/chart.module';
     AngularFireFunctionsModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
-    AngularFireStorageModule,
-    VideoModule,
-    ChartModule
+    AngularFireStorageModule
   ],
   providers: [
     { provide: REGION, useValue: 'asia-northeast1' }
