@@ -29,7 +29,7 @@ export class SignUpComponent implements OnInit {
 
   onSubmit() {
     console.log(this.formGroup);
-    this.authService.signIn(
+    this.authService.signUp(
       this.formGroup.get('username').value,
       this.formGroup.get('email').value,
       this.formGroup.get('password').value,
