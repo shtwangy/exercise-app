@@ -1,0 +1,76 @@
+<div class="container text-center">
+  <h2>Register for Exercise App</h2>
+  <mat-card>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" fxLayout="column">
+      <div class="spacer-extra-small"></div>
+      <mat-form-field hideRequiredMarker="true">
+        <input
+          matInput
+          placeholder="Enter User Name"
+          formControlName="username"
+          required
+          maxlength="80"
+          pattern="^[ -~]+$"
+          type="text"
+        />
+        <mat-error *ngIf="formGroup.get('username').invalid">This field is error.</mat-error>
+      </mat-form-field>
+      <div class="spacer-extra-small"></div>
+      <mat-form-field hideRequiredMarker="true">
+        <input
+          matInput
+          placeholder="Enter Email"
+          formControlName="email"
+          required
+          maxlength="80"
+          pattern="^[ -~]+$"
+          type="text"
+        />
+        <mat-error *ngIf="formGroup.get('email').invalid">This field is error.</mat-error>
+      </mat-form-field>
+      <div class="spacer-extra-small"></div>
+      <mat-form-field hideRequiredMarker="true">
+        <input
+          matInput
+          placeholder="Enter Password"
+          formControlName="password"
+          required
+          maxlength="80"
+          pattern="^[ -~]+$"
+          [type]="passwordHide ? 'password' : 'text'"
+        />
+        <mat-error *ngIf="formGroup.get('password').invalid">This field is error.</mat-error>
+        <button mat-icon-button matSuffix (click)="passwordHide = !passwordHide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
+          <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+      <div class="spacer-extra-small"></div>
+      <mat-form-field hideRequiredMarker="true">
+        <input
+          matInput
+          placeholder="Enter Confirm Password"
+          formControlName="confirmPassword"
+          required
+          maxlength="80"
+          pattern="^[ -~]+$"
+          [type]="passwordHide ? 'password' : 'text'"
+        />
+        <mat-error *ngIf="formGroup.get('confirmPassword').invalid">This field is error.</mat-error>
+        <button mat-icon-button matSuffix (click)="passwordHide = !passwordHide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
+          <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+      <div class="spacer-medium"></div>
+      <button
+        class="login-btn"
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="!formGroup.valid"
+      >
+        Sign Up!
+      </button>
+      <div class="spacer-extra-small"></div>
+    </form>
+  </mat-card>
+</div>
