@@ -3,5 +3,7 @@
   suggestedQuality="default"
   [height]="600"
   [width]="1024"
+  (ready)="onReady($event)"
+  (stateChange)="onStateChange($event)"
 >
 </youtube-player>
