@@ -34,10 +34,11 @@ export class ExerciseLogService {
   }
 
   updateExerciseLog(uid: string, exerciseTime: number): Observable<ExerciseLog[]> {
-    const dateData = firebase.firestore.Timestamp.now().toDate();
-    const fullYear = dateData.getFullYear();
-    const month = dateData.getMonth() + 1;
-    const date = dateData.getDate();
+    const now = firebase.firestore.Timestamp.now();
+    const nowData = now.toDate();
+    const fullYear = nowData.getFullYear();
+    const month = nowData.getMonth() + 1;
+    const date = nowData.getDate();
 
     const today = new Date(`${fullYear}-${month}-${date}`);
     const tomorrow = new Date(today);
@@ -59,6 +60,7 @@ export class ExerciseLogService {
           if (res.length > 0) {
             const data: ExerciseLog = res[0];
             data.exercise_time = data.exercise_time + exerciseTime;
+            data.updated_at = now;
             const id = data.id;
             return this.db.collection('exercise-logs').doc(id).update(data);
           } else {
