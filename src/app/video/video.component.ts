@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ExerciseLogService } from '../core/services/exercise-log/exercise-log.service';
+import { AuthService } from '../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-video',
@@ -11,6 +12,7 @@ export class VideoComponent implements OnInit {
   startTime: number;
 
   constructor(
+    private authService: AuthService,
     private exerciseLogService: ExerciseLogService
   ) { }
 
@@ -29,10 +31,11 @@ export class VideoComponent implements OnInit {
       this.startTime = new Date().getTime();
     }
     if (event.data === YT.PlayerState.ENDED || event.data === YT.PlayerState.PAUSED) {
-      // console.log('経過時間');
       const exerciseTime = (new Date().getTime() - this.startTime) / 1000;
       console.log(exerciseTime);
-      this.exerciseLogService.createExerciseLog(exerciseTime);
+      this.exerciseLogService.updateExerciseLog(this.authService.currentUser.uid, exerciseTime).subscribe(
+        res => console.log(res)
+      );
       this.startTime = new Date().getTime();
     }
   }
