@@ -13,6 +13,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HeaderComponent } from './core/components/header/header.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { HeaderComponent } from './core/components/header/header.component';
     AngularFirestoreModule,
     AngularFireStorageModule,
     BrowserAnimationsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatToolbarModule,
+    MatButtonModule
   ],
   providers: [
     { provide: REGION, useValue: 'asia-northeast1' }
