@@ -83,6 +83,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   text-align: center;
 }
 
+.spacer-horizontal {
+  flex: 1;
+  padding: 0 16px;
+}
+
 .spacer-extra-small {
   height: 16px
 }
