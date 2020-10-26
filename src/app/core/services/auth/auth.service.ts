@@ -43,7 +43,7 @@ export class AuthService {
                   username: data.username
                 };
                 this.isSignedIn = true;
-                this.router.navigate(['/exercise']);
+                this.router.navigate(['/dashboard']);
               })).subscribe();
           }
         })
