@@ -28,7 +28,7 @@
     "@angular/youtube-player": "^10.2.0",
     "apexcharts": "^3.20.2",
     "firebase": "^7.13.1",
-    "ng-apexcharts": "^1.5.1",
+    "ng-apexcharts": "^1.5.5",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
