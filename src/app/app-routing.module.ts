@@ -14,7 +14,11 @@ const routes: Routes = [
     path: 'exercise',
     loadChildren: () => import('./exercise/exercise.module').then( m => m.ExerciseModule),
     canActivate: [AuthGuard]
-  }
+  },
+  {
+    path: 'weight',
+    loadChildren: () => import('./weight/weight.module').then( m => m.WeightModule)
+  },
 ];
 
 @NgModule({
