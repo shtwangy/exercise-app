@@ -10,6 +10,8 @@ import {
   ApexStroke,
   ApexGrid
 } from 'ng-apexcharts';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../core/services/auth/auth.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -27,11 +29,15 @@ export type ChartOptions = {
   styleUrls: ['./weight.component.scss']
 })
 export class WeightComponent implements OnInit {
-
   @ViewChild('chart') chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 
-  constructor() {
+  formGroup: FormGroup;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService
+  ) {
     this.chartOptions = {
       series: [
         {
@@ -78,5 +84,13 @@ export class WeightComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.formGroup = this.formBuilder.group({
+      weight: ['', [Validators.required, Validators.maxLength(3), Validators.pattern('^[0-9]{1,3}')]]
+    });
+  }
+
+  onSubmit() {
+    console.log(this.formGroup.get('weight').value);
+  }
 }

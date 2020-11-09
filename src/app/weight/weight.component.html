@@ -1,4 +1,4 @@
-<div id="chart">
+<div class="container text-center">
   <apx-chart
     [series]="chartOptions.series"
     [chart]="chartOptions.chart"
@@ -8,4 +8,28 @@
     [stroke]="chartOptions.stroke"
     [title]="chartOptions.title"
   ></apx-chart>
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" fxLayout="column">
+    <mat-form-field hideRequiredMarker="true">
+      <input
+        matInput
+        placeholder="体重を入力してね！"
+        formControlName="weight"
+        required
+        maxlength="3"
+        pattern="^[0-9]{1,3}"
+        type="text"
+      />
+      <mat-error *ngIf="formGroup.get('weight').invalid">This field is error.</mat-error>
+    </mat-form-field>
+    <div class="spacer-extra-small"></div>
+    <button
+      class="submit-btn"
+      type="submit"
+      mat-raised-button
+      color="primary"
+      [disabled]="!formGroup.valid"
+    >
+      記録する
+    </button>
+  </form>
 </div>
