@@ -1,27 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-
 import {
-  ChartComponent,
   ApexAxisChartSeries,
   ApexChart,
-  ApexXAxis,
-  ApexDataLabels,
   ApexTitleSubtitle,
-  ApexStroke,
-  ApexGrid
+  ApexDataLabels,
+  ApexFill,
+  ApexMarkers,
+  ApexYAxis,
+  ApexXAxis,
+  ApexTooltip
 } from 'ng-apexcharts';
+import { dataSeries } from './data-series';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../core/services/auth/auth.service';
-
-export type ChartOptions = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  xaxis: ApexXAxis;
-  dataLabels: ApexDataLabels;
-  grid: ApexGrid;
-  stroke: ApexStroke;
-  title: ApexTitleSubtitle;
-};
 
 @Component({
   selector: 'app-weight',
@@ -29,8 +20,15 @@ export type ChartOptions = {
   styleUrls: ['./weight.component.scss']
 })
 export class WeightComponent implements OnInit {
-  @ViewChild('chart') chart: ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
+  public series: ApexAxisChartSeries;
+  public chart: ApexChart;
+  public dataLabels: ApexDataLabels;
+  public markers: ApexMarkers;
+  public title: ApexTitleSubtitle;
+  public fill: ApexFill;
+  public yaxis: ApexYAxis;
+  public xaxis: ApexXAxis;
+  public tooltip: ApexTooltip;
 
   formGroup: FormGroup;
 
@@ -38,48 +36,75 @@ export class WeightComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService
   ) {
-    this.chartOptions = {
-      series: [
-        {
-          name: 'Desktops',
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-        }
-      ],
-      chart: {
-        height: 350,
-        type: 'line',
-        zoom: {
-          enabled: false
-        }
+    this.initChartData();
+  }
+
+  public initChartData(): void {
+    let ts2 = 1484418600000;
+    const dates = [];
+    for (let i = 0; i < 120; i++) {
+      ts2 = ts2 + 86400000;
+      dates.push([ts2, dataSeries[1][i].value]);
+    }
+
+    this.series = [
+      {
+        name: 'XYZ MOTORS',
+        data: dates
+      }
+    ];
+    this.chart = {
+      type: 'area',
+      stacked: false,
+      height: 350,
+      zoom: {
+        type: 'x',
+        enabled: true,
+        autoScaleYaxis: true
       },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        curve: 'straight'
+      toolbar: {
+        autoSelected: 'zoom'
+      }
+    };
+    this.dataLabels = {
+      enabled: false
+    };
+    this.markers = {
+      size: 0
+    };
+    this.title = {
+      text: 'Stock Price Movement',
+      align: 'left'
+    };
+    this.fill = {
+      type: 'gradient',
+      gradient: {
+        shadeIntensity: 1,
+        inverseColors: false,
+        opacityFrom: 0.5,
+        opacityTo: 0,
+        stops: [0, 90, 100]
+      }
+    };
+    this.yaxis = {
+      labels: {
+        formatter(val) {
+          return (val / 1000000).toFixed(0);
+        }
       },
       title: {
-        text: 'Product Trends by Month',
-        align: 'left'
-      },
-      grid: {
-        row: {
-          colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-          opacity: 0.5
+        text: 'Price'
+      }
+    };
+    this.xaxis = {
+      type: 'datetime'
+    };
+    this.tooltip = {
+      shared: false,
+      y: {
+        formatter(val) {
+          return (val / 1000000).toFixed(0);
         }
-      },
-      xaxis: {
-        categories: [
-          'Jan',
-          'Feb',
-          'Mar',
-          'Apr',
-          'May',
-          'Jun',
-          'Jul',
-          'Aug',
-          'Sep'
-        ]
       }
     };
   }
