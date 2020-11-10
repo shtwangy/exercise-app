@@ -11,11 +11,6 @@ const routes: Routes = [
     loadChildren: () => import('./users/users.module').then( m => m.UsersModule),
   },
   {
-    path: 'exercise',
-    loadChildren: () => import('./exercise/exercise.module').then( m => m.ExerciseModule),
-    canActivate: [AuthGuard]
-  },
-  {
     path: 'weight',
     loadChildren: () => import('./weight/weight.module').then( m => m.WeightModule)
   },
