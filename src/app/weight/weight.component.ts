@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -13,6 +13,7 @@ import {
 import { dataSeries } from './data-series';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../core/services/auth/auth.service';
+import {WeightService} from '../core/services/weight/weight.service';
 
 @Component({
   selector: 'app-weight',
@@ -34,7 +35,8 @@ export class WeightComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private weightService: WeightService
   ) {
     this.initChartData();
   }
@@ -116,6 +118,7 @@ export class WeightComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.formGroup.get('weight').value);
+    this.weightService.updateWeightLog(this.authService.currentUser.uid, this.formGroup.get('weight').value).subscribe();
+    this.formGroup.reset();
   }
 }
