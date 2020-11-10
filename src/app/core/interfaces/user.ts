@@ -1,4 +1,5 @@
 import * as firebase from 'firebase/app';
+import WeightLog from './weight-log';
 
 export default interface User {
   uid: string;
@@ -6,4 +7,5 @@ export default interface User {
   email: string;
   updated_at: firebase.firestore.Timestamp;
   username: string;
+  weight_logs?: WeightLog[];
 }
