@@ -12,7 +12,8 @@ const routes: Routes = [
   },
   {
     path: 'weight',
-    loadChildren: () => import('./weight/weight.module').then( m => m.WeightModule)
+    loadChildren: () => import('./weight/weight.module').then( m => m.WeightModule),
+    canActivate: [AuthGuard]
   },
 ];
 
