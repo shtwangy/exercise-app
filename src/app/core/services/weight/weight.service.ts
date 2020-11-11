@@ -84,7 +84,9 @@ export class WeightService {
     return this.db
       .collection('users')
       .doc(uid)
-      .collection<WeightLog>('weight_logs')
+      .collection<WeightLog>('weight_logs', ref => {
+        return ref.orderBy('date', 'asc');
+      })
       .valueChanges();
   }
 }
