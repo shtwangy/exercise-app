@@ -3,6 +3,7 @@ import * as firebase from 'firebase';
 import {take, tap} from 'rxjs/operators';
 import WeightLog from '../../interfaces/weight-log';
 import {AngularFirestore} from '@angular/fire/firestore';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -77,5 +78,13 @@ export class WeightService {
           }
         })
       );
+  }
+
+  getWeightLogs(uid: string): Observable<any> {
+    return this.db
+      .collection('users')
+      .doc(uid)
+      .collection<WeightLog>('weight_logs')
+      .valueChanges();
   }
 }
