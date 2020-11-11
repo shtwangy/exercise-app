@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
+  ChartComponent,
   ApexAxisChartSeries,
   ApexChart,
   ApexTitleSubtitle,
@@ -8,12 +9,25 @@ import {
   ApexMarkers,
   ApexYAxis,
   ApexXAxis,
-  ApexTooltip
+  ApexGrid,
+  ApexStroke
 } from 'ng-apexcharts';
-import { dataSeries } from './data-series';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../core/services/auth/auth.service';
 import {WeightService} from '../core/services/weight/weight.service';
+
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  dataLabels: ApexDataLabels;
+  grid: ApexGrid;
+  fill: ApexFill;
+  markers: ApexMarkers;
+  yaxis: ApexYAxis;
+  stroke: ApexStroke;
+  title: ApexTitleSubtitle;
+};
 
 @Component({
   selector: 'app-weight',
@@ -21,15 +35,9 @@ import {WeightService} from '../core/services/weight/weight.service';
   styleUrls: ['./weight.component.scss']
 })
 export class WeightComponent implements OnInit {
-  public series: ApexAxisChartSeries;
-  public chart: ApexChart;
-  public dataLabels: ApexDataLabels;
-  public markers: ApexMarkers;
-  public title: ApexTitleSubtitle;
-  public fill: ApexFill;
-  public yaxis: ApexYAxis;
-  public xaxis: ApexXAxis;
-  public tooltip: ApexTooltip;
+  @ViewChild('chart') chart: ChartComponent;
+  public chartOptions: Partial<ChartOptions>;
+  isShow = false;
 
   formGroup: FormGroup;
 
@@ -37,81 +45,70 @@ export class WeightComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private weightService: WeightService
-  ) {
-    this.initChartData();
-  }
+  ) {}
 
   public initChartData(): void {
-    let ts2 = 1484418600000;
-    const dates = [];
-    for (let i = 0; i < 120; i++) {
-      ts2 = ts2 + 86400000;
-      dates.push([ts2, dataSeries[1][i].value]);
-    }
+    this.weightService.getWeightLogs(this.authService.currentUser.uid)
+      .subscribe(
+      res => {
+        const dates = [];
+        const weights = [];
+        res.forEach(data => {
+          dates.push(data.date);
+          weights.push(data.value);
+        });
+        console.log(dates);
+        console.log(weights);
 
-    this.series = [
-      {
-        name: 'XYZ MOTORS',
-        data: dates
+        const max = new Date(dates[dates.length - 1]).getTime();
+        const min = new Date(dates[0]).getTime();
+        this.chartOptions = {
+          series: [
+            {
+              name: 'weight',
+              data: weights
+            }
+          ],
+          chart: {
+            height: 350,
+            type: 'line',
+            zoom: {
+              type: 'x',
+              enabled: true,
+              autoScaleYaxis: true
+            },
+            toolbar: {
+              autoSelected: 'zoom'
+            }
+          },
+          dataLabels: {
+            enabled: true
+          },
+          stroke: {
+            curve: 'straight'
+          },
+          title: {
+            text: 'ログ',
+            align: 'left'
+          },
+          grid: {
+            row: {
+              colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+              opacity: 0.5
+            }
+          },
+          xaxis: {
+            type: 'datetime',
+            categories: dates
+          }
+        };
+        this.isShow = true;
       }
-    ];
-    this.chart = {
-      type: 'area',
-      stacked: false,
-      height: 350,
-      zoom: {
-        type: 'x',
-        enabled: true,
-        autoScaleYaxis: true
-      },
-      toolbar: {
-        autoSelected: 'zoom'
-      }
-    };
-    this.dataLabels = {
-      enabled: false
-    };
-    this.markers = {
-      size: 0
-    };
-    this.title = {
-      text: 'Stock Price Movement',
-      align: 'left'
-    };
-    this.fill = {
-      type: 'gradient',
-      gradient: {
-        shadeIntensity: 1,
-        inverseColors: false,
-        opacityFrom: 0.5,
-        opacityTo: 0,
-        stops: [0, 90, 100]
-      }
-    };
-    this.yaxis = {
-      labels: {
-        formatter(val) {
-          return (val / 1000000).toFixed(0);
-        }
-      },
-      title: {
-        text: 'Price'
-      }
-    };
-    this.xaxis = {
-      type: 'datetime'
-    };
-    this.tooltip = {
-      shared: false,
-      y: {
-        formatter(val) {
-          return (val / 1000000).toFixed(0);
-        }
-      }
-    };
+    );
   }
 
   ngOnInit(): void {
+    this.initChartData();
     this.formGroup = this.formBuilder.group({
       weight: ['', [Validators.required, Validators.maxLength(3), Validators.pattern('^[0-9]{1,3}')]]
     });

@@ -1,15 +1,16 @@
 <div class="container text-center">
   <apx-chart
-    [series]="series"
-    [chart]="chart"
-    [dataLabels]="dataLabels"
-    [markers]="markers"
-    [title]="title"
-    [fill]="fill"
-    [yaxis]="yaxis"
-    [xaxis]="xaxis"
-    [tooltip]="tooltip"
-    [autoUpdateSeries]="true"
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [xaxis]="chartOptions.xaxis"
+    [dataLabels]="chartOptions.dataLabels"
+    [grid]="chartOptions.grid"
+    [stroke]="chartOptions.stroke"
+    [title]="chartOptions.title"
+    [markers]="chartOptions.markers"
+    [yaxis]="chartOptions.yaxis"
+    [fill]="chartOptions.fill"
+    *ngIf="isShow"
   ></apx-chart>
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" fxLayout="column">
     <mat-form-field hideRequiredMarker="true">
