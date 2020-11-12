@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -60,8 +60,6 @@ export class WeightComponent implements OnInit {
         console.log(dates);
         console.log(weights);
 
-        const max = new Date(dates[dates.length - 1]).getTime();
-        const min = new Date(dates[0]).getTime();
         this.chartOptions = {
           series: [
             {
