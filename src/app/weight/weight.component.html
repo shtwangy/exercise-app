@@ -14,7 +14,7 @@
     ></apx-chart>
   </div>
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" fxLayout="column">
-    <mat-form-field hideRequiredMarker="true">
+    <mat-form-field hideRequiredMarker="true" style="width: 100%; text-align: center;">
       <input
         matInput
         placeholder="体重を入力してね！"
@@ -33,6 +33,7 @@
       mat-raised-button
       color="primary"
       [disabled]="!formGroup.valid"
+      style="width: 100%"
     >
       記録する
     </button>
