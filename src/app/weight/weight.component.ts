@@ -86,7 +86,7 @@ export class WeightComponent implements OnInit {
             curve: 'straight'
           },
           title: {
-            text: 'ログ',
+            text: '体重記録',
             align: 'left'
           },
           grid: {
