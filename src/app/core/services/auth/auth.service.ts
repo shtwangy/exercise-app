@@ -88,7 +88,7 @@ export class AuthService {
           this.db.collection('users').doc(uid).set(userInitialData)
             .then(() => {
               this.currentUser = userInitialData;
-              this.router.navigate(['/exercise']);
+              this.router.navigate(['/weight']);
             });
         }
       })
