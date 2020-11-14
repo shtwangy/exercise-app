@@ -6,6 +6,7 @@ import { AngularFirestore} from '@angular/fire/firestore';
 import User from '../../interfaces/user';
 import { Observable, of, pipe } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import {LocalStorageService} from '../local-storage/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class AuthService {
   constructor(
     private router: Router,
     private auth: AngularFireAuth,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private localStorageService: LocalStorageService
   ) { }
 
   signIn(email: string, password: string): Observable<any> {
@@ -43,6 +45,7 @@ export class AuthService {
                   username: data.username
                 };
                 this.isSignedIn = true;
+                this.localStorageService.store('login', { email, password });
                 this.router.navigate(['/weight']);
               })).subscribe();
           }
