@@ -108,7 +108,7 @@ export class WeightComponent implements OnInit {
   ngOnInit(): void {
     this.initChartData();
     this.formGroup = this.formBuilder.group({
-      weight: ['', [Validators.required, Validators.maxLength(3), Validators.pattern('^[0-9]{1,3}')]]
+      weight: ['', [Validators.required, Validators.maxLength(5), Validators.pattern('^[0-9.]*$')]]
     });
   }
 
